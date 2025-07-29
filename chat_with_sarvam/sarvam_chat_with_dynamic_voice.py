@@ -10,6 +10,7 @@ load_dotenv()
 from rich.panel import Panel
 from rich.console import Console
 from rich.text import Text
+from rich import print as pprint
 
 import sounddevice as sd
 from scipy.io.wavfile import write
@@ -78,7 +79,7 @@ def record_audio(filename="recorded_audio.wav", duration=60, sample_rate=44100):
             # Check if Enter was pressed (Linux/Mac compatible)
             if sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
                 input()  # Consume the Enter
-                print("⏹️ Recording stopped by user")
+                print("⏹️ Recording stopped by user\n\n")
                 break
                 
             # Check max duration
@@ -94,7 +95,7 @@ def record_audio(filename="recorded_audio.wav", duration=60, sample_rate=44100):
         write(filename, sample_rate, recording_int16)
         
         duration = len(recording) / sample_rate
-        print(f"✅ Saved recording. Duration: {duration:.1f}s")
+        # print(f"✅ Saved recording. Duration: {duration:.1f}s")
         return filename
     else:
         print("❌ No audio recorded")
@@ -220,7 +221,7 @@ def chat():
         try:
             user_input = transcribe_audio(audio_file_path=audio_path, client=client)
             user_input = user_input.transcript
-            print(f"User: {user_input}")
+            pprint(f"[bold yellow]User: {user_input}[/bold yellow]")
         except Exception as e:
             print("Error during transcription:", e)
             user_input = ""
@@ -252,7 +253,7 @@ def chat():
 
         sarvam_tts(assistant_response, lang_code)
 
-        print(f"Assistant: {assistant_response}")
+        pprint(f"[bold yellow]Assistant: {assistant_response}[/bold yellow]")
 
         # gu, en = translate_text(assistant_response)
 

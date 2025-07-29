@@ -5,6 +5,9 @@ This is a terminal-based multilingual voice chatbot built using [SarvamAI](https
 
 ---
 
+![Demo Image](images/image.png)
+
+
 ## 🚀 Features
 
 - 🎧 Record audio input from microphone
